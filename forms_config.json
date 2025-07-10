@@ -1,0 +1,32 @@
+{
+  "surat_izin_pendidikan": {
+    "label": "Surat Izin Pendidikan",
+    "template": "surat_izin_pendidikan.docx",
+    "fields": [
+      { "label": "Nama", "name": "nama" },
+      { "label": "NIM", "name": "nim" },
+      { "label": "Keperluan", "name": "keperluan" },
+      { "label": "Tanggal", "name": "tanggal" }
+    ]
+  },
+  "surat_izin_usaha": {
+    "label": "Surat Izin Usaha",
+    "template": "surat_izin_usaha.docx",
+    "fields": [
+      { "label": "Nama Pemilik", "name": "nama" },
+      { "label": "Nama Usaha", "name": "nama_usaha" },
+      { "label": "Alamat Usaha", "name": "alamat" },
+      { "label": "Tanggal", "name": "tanggal" }
+    ]
+  },
+  "surat_keterangan_aktif": {
+    "label": "Surat Keterangan Aktif",
+    "template": "surat_keterangan_aktif.docx",
+    "fields": [
+      { "label": "Nama", "name": "nama" },
+      { "label": "Tempat/Tgl Lahir", "name": "tempat/tgl_lahir" },
+      { "label": "Alamat", "name": "alamat" },
+      { "label": "Tanggal", "name": "tanggal" }
+    ]
+  }
+}

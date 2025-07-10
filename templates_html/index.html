@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Generator Surat Otomatis</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background: url("/static/img/waerebo2.png") no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
+    }
+
+    .overlay {
+      background-color: rgba(255, 255, 255, 0.9);
+      min-height: 100vh;
+      padding: 60px 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      margin-top: 30px;
+      margin-bottom: 30px;
+      background: rgba(252, 255, 251, 0.85);
+      padding: 10px 50px 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    h2, h3 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 30px;
+    }
+
+    label {
+      font-weight: 600;
+      display: block;
+      margin-top: 20px;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 30px;
+      width: 100%;
+      padding: 14px;
+      background-color: #27ae60;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #219150;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>📝 Generator Surat Administrasi Desa</h2>
+    
+    {% if jenis_surat %}
+    <!-- Tahap 1: Pilih Jenis Surat -->
+    <form method="POST">
+      <label for="jenis_surat">📄 Pilih Jenis Surat:</label>
+      <!-- <select name="jenis_surat" required>
+        <option disabled selected value="">-- Pilih Jenis Surat --</option>
+        {% for key, item in config.items() %}
+          <option value="{{ key }}">{{ item.label }}</option>
+        {% endfor %}
+      </select> -->
+
+      <select name="jenis_surat" required>
+        <option disabled selected value="">-- Pilih Jenis Surat --</option>
+        <option value="surat_izin_usaha">Surat Izin Usaha</option>
+        <option value="surat_izin_pendidikan">Surat Izin Pendidikan</option>
+        <option value="surat_keterangan_aktif">Surat Keterangan Aktif</option>
+    </select>
+
+      <button type="submit">Lanjut Isi Form</button>
+    </form>
+    {% endif %}
+
+    <!-- kondisi jika error -->
+     {% if not jenis_surat %}
+  <p style="color:red;">[DEBUG] Tidak ada jenis_surat</p>
+  <form method="POST">
+    <label for="jenis_surat">📄 Pilih Jenis Surat:</label>
+    <select name="jenis_surat" required>
+      <option disabled selected value="">-- Pilih Jenis Surat --</option>
+      {% for key, item in config.items() %}
+        <option value="{{ key }}">{{ item.label }}</option>
+      {% endfor %}
+    </select>
+    <button type="submit">Lanjut Isi Form</button>
+  </form>
+{% else %}
+  <p style="color:green;">[DEBUG] Jenis surat terdeteksi: {{ jenis_surat }}</p>
+{% endif %}
+
+
+    {% if jenis_surat and fields %}
+    <!-- Tahap 2: Form Input Field -->
+    <form method="POST">
+      <h3>{{ config[jenis_surat].label }}</h3>
+      <input type="hidden" name="jenis_surat" value="{{ jenis_surat }}">
+      {% for field in fields %}
+        <label>{{ field.label }}</label>
+        <input type="text" name="{{ field.name }}" required>
+      {% endfor %}
+      <button type="submit">📥 Generate dan Download Surat</button>
+    </form>
+    {% endif %}
+  </div>
+</body>
+</html>
